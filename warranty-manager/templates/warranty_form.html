@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %} 
+
+ <div class="form-container">
+        <h1>Add Warranty</h1>
+        <form action="{% url 'warranty_form' %}" method="post"  enctype="multipart/form-data" id="warrantyForm">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" id="submitBtn">Submit</button>
+        </form>
+    </div>
+    <script>
+        // Enable/disable submit button if required fields are empty
+        const warrantyForm = document.getElementById('warrantyForm');
+        const submitBtn = document.getElementById('submitBtn');
+
+        function checkFormValidity() {
+            let valid = true;
+            const inputs = warrantyForm.querySelectorAll('input[required], select[required], textarea[required]');
+            inputs.forEach(input => {
+                if (!input.value.trim()) valid = false;
+            });
+            submitBtn.disabled = !valid;
+        }
+
+        warrantyForm.addEventListener('input', checkFormValidity);
+        window.addEventListener('DOMContentLoaded', checkFormValidity);
+    </script>
+</body>
+</html>
+{% endblock content %}
+<!-- This is the warranty form template for adding new warranties. It extends the base template and includes

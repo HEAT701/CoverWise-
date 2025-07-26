@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard - Warranty Data</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h2>My Warranty Dashboard</h2>
+    {{request.user.username}}
+    {% if data %}
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Product Name</th>
+            <th>Product ID</th>
+            <th>Expiry Date</th>
+            <th>QR Data</th>
+            <th>Warranty Image</th>
+        </tr>
+        {% for warranty in data %}
+        <tr>
+            <td>{{ warranty.id }}</td>
+            <td>{{ warranty.product_name }}</td>
+            <td>{{ warranty.product_id }}</td>
+            <td>{{ warranty.expiry_date }}</td>
+            <td>{{ warranty.qr_data|truncatechars:50 }}</td>
+            <td>
+                {% if warranty.warranty_image %}
+                    <img src="{{ warranty.warranty_image.url }}" alt="Warranty Image" width="100">
+                {% else %}
+                    No Image
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+        <p style="text-align: center;">No warranty records found.</p>
+    {% endif %}
+
+</body>
+</html>
