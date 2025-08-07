@@ -1,5 +1,5 @@
 
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth import authenticate,login,logout
@@ -52,7 +52,6 @@ def dashboard_view(request):
         else:
             top_three = []
             Total_products = 0
-
     return render(request, 'dashboard.html', {'data': data,'products': top_three,'Total_products': Total_products})
 
 def file_upload(request):
@@ -71,3 +70,32 @@ def Warranty_form(request):
     else:
         form = WarrantyForm()
     return render(request, 'warranty_form.html', {'form': form})
+
+
+# delete warranty 
+@login_required
+def delete_warranty(request,id):
+    if request.method == "POST":
+      warranty = get_object_or_404(Warranty, id=id)
+      warranty.delete()
+      return redirect('dashboard')
+    else:
+        return HttpResponse("Method not allowed")
+
+@login_required
+def Update_item(request ,id ):
+    wareenty = get_object_or_404(Warranty, id=id)
+    if request.method == "POST":
+        form = WarrantyForm(request.POST, request.FILES, instance=wareenty)
+        if form.is_valid():
+            form.save()
+            return redirect('dashboard')
+    else:
+        form = WarrantyForm(instance=wareenty)
+    return render(request, 'update_item.html', {'form': form, 'warranty': wareenty})
+
+# View to handle the update of warranty items
+@login_required
+def view_item(request, id):
+    warranty = get_object_or_404(Warranty, id=id)
+    return render(request, 'view_item.html', {'warranty': warranty})

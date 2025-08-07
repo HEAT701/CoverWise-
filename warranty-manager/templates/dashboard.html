@@ -835,6 +835,7 @@
 <table class="products-table">
     <thead>
         <tr>
+            <th>Product ID </th>
             <th>Product</th>
             <th>Category</th>
             <th>Purchase Date</th>
@@ -846,15 +847,31 @@
     <tbody>
         {% for warranty in data %}
         <tr>
+            <td>{{ warranty.id }}</td>
             <td>{{ warranty.product_name }}</td>
             <td>Electronics</td>
             <td>2023-01-15</td>
             <td>{{warranty.expiry_date }}</td>
             <td><span class="status active">Active</span></td>
             <td class="actions">
-                <div class="action-btn"><i class="fas fa-eye"></i></div>
-                <div class="action-btn"><i class="fas fa-edit"></i></div>
-                <div class="action-btn"><i class="fas fa-trash"></i></div>
+                <form action="{% url 'view_item' warranty.id %}" method="GET" style="display:inline;">
+                    <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </form>
+                <form action="{% url 'update_item' warranty.id %}" method="GET" style="display:inline;">
+                    <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </form>
+                <div class="action-btn">
+                    <form action="{% url 'delete_warranty' warranty.id %}" method="POST" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </form>
+                </div>
             </td>
         </tr>
         {% endfor %}

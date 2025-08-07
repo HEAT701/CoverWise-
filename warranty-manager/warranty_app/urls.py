@@ -9,5 +9,8 @@ urlpatterns = [
     path('dashboard/',views.dashboard_view,name='dashboard'),
     path('file-upload/',views.file_upload,name='file_upload'),
     path('warranty-form/', views.Warranty_form, name='warranty_form'),
+    path('delete-warranty/<int:id>/', views.delete_warranty, name='delete_warranty'),
+    path('update-item/<int:id>/', views.Update_item, name='update_item'),
+    path('view-item/<int:id>/', views.view_item, name='view_item'),
 
 ]
