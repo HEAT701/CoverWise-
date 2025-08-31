@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import RegisterForm
 from .models import Warranty
 from .forms import WarrantyForm
+from django.core.cache import cache
 # Create your views here.
 def Home(request):
    return render(request,"Home.html")
@@ -52,7 +53,7 @@ def dashboard_view(request):
         else:
             top_three = []
             Total_products = 0
-    return render(request, 'dashboard.html', {'data': data,'products': top_three,'Total_products': Total_products})
+    return render(request, 'dashboard.html', {'data': data,'products': top_three,'Total_products': Total_products,})
 
 def file_upload(request):
     return render(request,'dashboard.html')
@@ -97,5 +98,19 @@ def Update_item(request ,id ):
 # View to handle the update of warranty items
 @login_required
 def view_item(request, id):
+
     warranty = get_object_or_404(Warranty, id=id)
     return render(request, 'view_item.html', {'warranty': warranty})
+
+
+
+def Get_Document(request, id):
+   keys = f'warranty_{id}'
+   warranty = cache.get(keys)
+   if not warranty:
+       warranty = get_object_or_404(Warranty, id=id)
+       cache.set(keys, warranty, ex=30)  # Cache for 5 minutes
+   else:
+         print("Data fetched from cache")
+    
+   return render(request, 'get_document.html', {'warranty': warranty})

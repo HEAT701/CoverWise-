@@ -759,51 +759,6 @@
                     {% endfor %}
                 </div>
             </div>
-            
-            <div class="card">
-                <div class="card-header">
-                    <h2>Recent Documents</h2>
-                    <i class="fas fa-file-alt"></i>
-                </div>
-                <div class="documents-list">
-                    <div class="document-item">
-                        <i class="fas fa-file-pdf"></i>
-                        <div class="document-name">iPhone_14_Invoice.pdf</div>
-                        <div class="document-actions">
-                            <div class="action-btn download-btn">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <div class="action-btn delete-btn">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="document-item">
-                        <i class="fas fa-file-image"></i>
-                        <div class="document-name">MacBook_Warranty.jpg</div>
-                        <div class="document-actions">
-                            <div class="action-btn download-btn">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <div class="action-btn delete-btn">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="document-item">
-                        <i class="fas fa-file-pdf"></i>
-                        <div class="document-name">Samsung_TV_Receipt.pdf</div>
-                        <div class="document-actions">
-                            <div class="action-btn download-btn">
-                                <i class="fas fa-download"></i>
-                            </div>
-                            <div class="action-btn delete-btn">
-                                <i class="fas fa-trash"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         
         <div class="upload-section">
@@ -854,7 +809,7 @@
             <td>{{warranty.expiry_date }}</td>
             <td><span class="status active">Active</span></td>
             <td class="actions">
-                <form action="{% url 'view_item' warranty.id %}" method="GET" style="display:inline;">
+                <form action="{% url 'get_document' warranty.id %}" method="GET" style="display:inline;">
                     <button type="submit" style="background:none; border:none; color:inherit; cursor:pointer;">
                         <i class="fas fa-eye"></i>
                     </button>

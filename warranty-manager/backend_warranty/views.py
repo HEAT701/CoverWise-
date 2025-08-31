@@ -13,7 +13,6 @@ from django.http import JsonResponse
 import re
 import pytesseract
 from django.utils.dateparse import parse_date
-
 # ✅ Safe way to set pytesseract command
 TESSERACT_PATH = getattr(settings, "TESSERACT_CMD", r"C:\Program Files\Tesseract-OCR\tesseract.exe")
 pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
