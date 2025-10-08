@@ -24,5 +24,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('warranty_app.urls')),
     path('automation/',include('Autometions.urls')),
-    path('upload/', views.upload_warranty, name='upload_warranty'),
+    # path('upload/', views.upload_warranty, name='upload_warranty'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

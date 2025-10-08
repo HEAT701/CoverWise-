@@ -16,3 +16,4 @@ def Get_Document(request, id):
          print("Data fetched from RAM")
 
    return render(request, 'view_item.html', {'warranty': warranty})
+

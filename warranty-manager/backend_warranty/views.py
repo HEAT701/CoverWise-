@@ -1,3 +1,4 @@
+'''
 import cv2
 import numpy as np
 from pyzbar.pyzbar import decode
@@ -108,3 +109,4 @@ def find_field(text, pattern):
     if match:
         return match.group(1).strip()
     return None
+'''

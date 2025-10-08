@@ -8,6 +8,7 @@ from .forms import RegisterForm
 from .models import Warranty
 from .forms import WarrantyForm
 from django.core.cache import cache
+from django.db.models import Count,Avg
 # Create your views here.
 def Home(request):
    return render(request,"Home.html")
@@ -49,11 +50,13 @@ def dashboard_view(request):
     if request.method =="GET":
         if data.exists():
             top_three = data.order_by('-expiry_date')[:3]
+            Total = data.aggregate(total=Count("expiry_date"))['total']
             Total_products = data.count()
         else:
             top_three = []
+            Total = 0
             Total_products = 0
-    return render(request, 'dashboard.html', {'data': data,'products': top_three,'Total_products': Total_products,})
+    return render(request, 'dashboard.html', {'data': data,'products': top_three,'Total_products': Total_products,'Total_ex':Total})
 
 def file_upload(request):
     return render(request,'dashboard.html')
@@ -114,3 +117,5 @@ def Get_Document(request, id):
          print("Data fetched from cache")
     
    return render(request, 'get_document.html', {'warranty': warranty})
+
+
